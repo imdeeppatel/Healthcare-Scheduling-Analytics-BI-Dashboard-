@@ -1,139 +1,63 @@
-# Healthcare Scheduling Analytics & BI Dashboard
+# HealthCare-Analytics-Dashboard
+This dashboard will give Hospital Staff detail information about what is the issue and what all steps they should be taking to solve those issue with the help of Data Analytics. 
 
-**Kaiser Permanente Internal Initiative**
 
-A full-stack analytics pipeline and business intelligence solution that transforms raw EHR scheduling data into real-time patient flow visibility across clinical departments — directly supporting a 25% wait time reduction initiative.
+# Project Title
 
----
+**A brief description of this project**
 
-## Overview
+This comprehensive Healthcare Analytics Dashboard is designed to provide healthcare professionals and administrators with insights into patient visits, treatment satisfaction, waiting times, and demographic distributions. The dashboard helps to understand patient flow, identify areas for improvement, and enhance overall patient care.
 
-This project delivers an end-to-end data pipeline and Tableau dashboard suite for monitoring and optimizing patient scheduling operations. By connecting raw Electronic Health Record (EHR) data to structured SQL transformations and interactive visualizations, the solution gives clinical and operational leadership actionable insight into scheduling performance, resource utilization, and patient throughput.
+Using **Power BI, DAX Functions, and Power Query**, organizations can visualize key healthcare metrics such as Total patient visits, average satisfaction, average waiting time, age group distribution, yearly trends, monthly visits, etc. They can also analyze historical data to identify trends, optimize operations, and make informed decisions to improve efficiency and reduce waiting time, and provide the best facilities to the patients.
 
----
+# Healthcare Analytics Dashboard
 
-## Key Features
+### Dashboard Link : 
 
-- **EHR Data Ingestion** — Extracts raw scheduling data from source EHR systems across 5+ clinical departments
-- **SQL Transformation Layer** — Cleans, normalizes, and enriches raw data into structured, analytics-ready tables
-- **KPI Framework** — Defines and tracks metrics aligned with clinical and operational goals (wait times, appointment utilization, no-show rates, etc.)
-- **Tableau Dashboards** — Real-time dashboards providing patient flow visibility to clinical and administrative stakeholders
-- **Stakeholder Collaboration** — KPIs and metrics defined jointly with clinical staff and IT teams to ensure operational relevance
+**https://app.powerbi.com/groups/me/reports/6798e87c-11ef-4efd-9241-aee0799e1316/9a213e260d02260ed8b7?experience=power-bi**
 
----
+## Problem Statement
 
-## Tech Stack
+In the fast-paced environment of healthcare, administrators and professionals often struggle to effectively monitor and analyze critical patient metrics such as visit counts, waiting times, treatment satisfaction, and demographic distributions. This lack of comprehensive and easily accessible data can hinder the ability to make informed decisions, optimize patient flow, improve service delivery, and enhance overall patient care.
 
-| Layer | Technology |
-|---|---|
-| Data Source | EHR Scheduling System |
-| Transformation | SQL (stored procedures / views) |
-| Visualization | Tableau |
-| Collaboration | Cross-functional (Clinical + IT) |
+### Summary for Steps followed 
+1. **Collecting Data**
+**Data Source**: The data for this project was collected from hospital records, patient feedback forms, and internal healthcare systems.
 
----
+2. **Loading Data into Power BI**
+**Data Import**: The data was imported into Power BI using CSV files and database connections.
 
-## Pipeline Architecture
+3. **Checking Data in Power Query Editor**
+**Data Review**: In Power Query Editor, we examined the data to understand its structure and identify any inconsistencies.
+Full Data Visibility: Ensured that Power BI could display the entire dataset by adjusting settings as needed.
 
-```
-EHR Scheduling Data
-        │
-        ▼
-  Raw Data Extraction
-        │
-        ▼
-  SQL Transformations
-  (cleaning, joins, aggregations)
-        │
-        ▼
-  Analytics-Ready Data Layer
-        │
-        ▼
-  Tableau Dashboards
-  (real-time patient flow, KPIs)
-        │
-        ▼
-  Clinical & Operational Stakeholders
-```
+4. **Data Cleaning**
+**Cleaning Process**: Addressed missing values, corrected errors, and standardized data formats to ensure accuracy and usability.
 
----
+5. **Data Manipulation and Measures Creation**
+**Data Manipulation**: We performed various data manipulation tasks to transform and reshape the data as needed. This included filtering, grouping, and aggregating data to prepare it for detailed analysis.
 
-## KPIs Tracked
+**Creating Measures**: Using DAX (Data Analysis Expressions), we created multiple measures to facilitate our analysis. 
 
-- **Average Patient Wait Time** — Scheduled vs. actual appointment start time
-- **Department Throughput** — Patients seen per hour / per day by department
-- **Appointment Utilization Rate** — Booked slots vs. available capacity
-- **No-Show & Cancellation Rate** — Trends by department, time of day, and provider
-- **Scheduling Lead Time** — Days between booking and appointment date
+**Some of the key measures included**:
 
----
+a. Total Visits = COUNT([VisitID]).
 
-## Impact
+b. Average Waiting Time = AVERAGE([WaitingTime]).
 
-- Enabled **real-time patient flow visibility** across 5+ departments for clinical and operational teams
-- Contributed to a **25% reduction in patient wait times** by surfacing scheduling inefficiencies
-- Translated complex EHR data into **actionable metrics** through close collaboration with clinical and IT stakeholders
+c. Satisfaction Rate = CALCULATE(AVERAGE([SatisfactionScore]), FILTER([SatisfactionScore] >= 4)).
 
----
+d. Referral Percentage = DIVIDE(CALCULATE(COUNT([PatientID]), [Referred] = "Yes"), COUNT([PatientID])).
 
-## Project Structure
+6. **Data Visualization**
+**Creating Visuals**: Developed various charts and graphs in Power BI to visualize key metrics and insights.
 
-```
-healthcare-scheduling-analytics/
-├── sql/
-│   ├── raw_to_staging.sql        # Initial data cleaning and normalization
-│   ├── staging_to_analytics.sql  # KPI calculations and aggregations
-│   └── views/                    # Reusable views for Tableau connection
-├── dashboards/
-│   └── patient_flow_dashboard.twbx  # Tableau packaged workbook
-├── docs/
-│   ├── kpi_definitions.md        # Definitions and business logic for each KPI
-│   └── data_dictionary.md        # Field-level documentation for all tables
-└── README.md
-```
+**Visual Enhancements**: Applied themes, colors, and labels to make the dashboard intuitive and visually appealing.
 
----
 
-## Setup & Usage
+# Report Snapshot (Power BI DESKTOP)
+![image](https://github.com/MithilKothari/HealthCare-Analytics-Dashboard/assets/156261969/18b0f9cd-56a4-4c17-890f-fef1e2266bcd)
 
-### Prerequisites
 
-- Access to the EHR scheduling data source (internal credentials required)
-- SQL Server / PostgreSQL environment (adjust dialect as needed)
-- Tableau Desktop or Tableau Server
 
-### Steps
 
-1. **Run SQL transformations** in order:
-   ```sql
-   -- Step 1: Raw to staging
-   source sql/raw_to_staging.sql
-
-   -- Step 2: Staging to analytics layer
-   source sql/staging_to_analytics.sql
-   ```
-
-2. **Connect Tableau** to the analytics layer tables/views produced in step 1.
-
-3. **Open the dashboard** (`dashboards/patient_flow_dashboard.twbx`) and publish to Tableau Server for stakeholder access.
-
----
-
-## Stakeholders
-
-| Group | Role |
-|---|---|
-| Clinical Staff | KPI definition, metric validation |
-| IT / Data Team | Pipeline development, data access |
-| Operations Leadership | Dashboard consumers, decision-makers |
-
----
-
-## Notes
-
-- All data used in this project is internal to Kaiser Permanente and subject to HIPAA compliance requirements. No patient PII is exposed in dashboards or transformation outputs.
-- Refresh cadence and data retention policies follow Kaiser Permanente's internal data governance standards.
-
----
-
-*Internal initiative — Kaiser Permanente*
